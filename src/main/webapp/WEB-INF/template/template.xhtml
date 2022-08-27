@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="title"> UpskillingAPP </ui:insert></title>
+	<link rel="icon" type="image/png" href="#{resource['icons/icon.png']}" />
+</h:head>
+<h:body dir="ltr">
+
+	<h:outputStylesheet name="upskillingapp.css" library="css" />
+
+
+
+	<p:panel>
+		<ui:include src="/WEB-INF/include/header.xhtml" />
+
+		<p:panel id="contentPnl" rendered="#{mbSec.logon}" style="min-height:400px;">
+
+			<ui:include src="/WEB-INF/include/mainMenu.xhtml" />
+
+			<br />
+
+			<ui:insert name="content">
+				<h1>Insert your code here</h1>
+				<h2>Insert your code here</h2>
+				<h3>Insert your code here</h3>
+				<h4>Insert your code here</h4>
+				<h5>Insert your code here</h5>
+				<h6>Insert your code here</h6>
+			</ui:insert>
+
+		</p:panel>
+
+		<p:panel id="loginPnl" rendered="#{!mbSec.logon}" style="min-hight:400px;">
+			<h2>Al-Hussein Technical University</h2>
+			<p>Located in the King Hussein Business Park, Al Hussein Technical University (HTU) was established by the Crown Prince Foundation to
+				bridge the gap between the number of graduates and their rate of employment in technical fields. To address this gap, the Crown Prince
+				Foundation set forth HTU as a model of technical education that features a seamless combination of excellence, rigor, and close
+				alignment to the ever-changing demands and developments of industry.</p>
+			<p>HTU prepares students in STEM (Science, Technology, Engineering, and Mathematics) education and training. Students earn their
+				degrees through a combination of the finest theoretical instruction and the latest practical applications in new, state-of-the-art
+				laboratories. In addition, HTU has formed close ties with the technical industry in Jordan, regionally, and internationally, resulting
+				in mutually beneficial partnerships.</p>
+			<p:link href="https://www.htu.edu.jo/about-us.html" value="Referance" />
+			<h2>ICT Upskilling Program</h2>
+			<h4>Center of Professional Development and Community Outreach</h4>
+			<p>In January 2019, Al Hussein Technical University (HTU) launched the National ICT Upskilling programme in collaboration with the
+				Ministry of Digital Economy and Entrepreneurship (MoDEE). The programme aims to arm job-seeking ICT graduates with skills that are
+				likely to improve their chances of finding employment opportunities in advanced technologies.</p>
+			<h4>More About This Program's Goals:</h4>
+			<p>The programme trained 1,000 university graduates in skill-scarce fields over the course of two years (2019 and 2020), ultimately
+				contributing to the talent pool of the IT sector in Jordan.Job-seeking graduates undertook 340 contact hours of intensive applied
+				practical training at HTU which include:</p>
+			<ul>
+				<li>100+ CONTACT HOURS FOR THE ENGLISH LANGUAGE COMPONENT</li>
+				<li>60+ CONTACT HOURS FOR THE SOFT SKILLS COMPONENT</li>
+				<li>180+ CONTACT HOURS FOR THE TECHNICAL COMPONENT</li>
+			</ul>
+			<p:link
+				href="https://www.htu.edu.jo/UP-SKILLING.html#:~:text=In%20January%202019%2C%20Al%20Hussein%20Technical%20University%20%28HTU%29,the%20Ministry%20of%20Digital%20Economy%20and%20Entrepreneurship%20%28MoDEE%29."
+				target="blank" value="ICT Upskilling Program" />
+
+			<ui:include src="/WEB-INF/include/logon.xhtml" />
+		</p:panel>
+
+		<f:facet name="footer">
+			<p:outputLabel value="Copyright © Al-Husseien Technical University" styleClass="footer" />
+		</f:facet>
+	</p:panel>
+</h:body>
+</html>

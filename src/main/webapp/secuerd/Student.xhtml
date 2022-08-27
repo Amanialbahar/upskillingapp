@@ -1,0 +1,139 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title"> Student</ui:define>
+	<ui:define name="content">
+		<h:body>
+			<h:form id="form">
+				<p:panel>
+					<p:dataTable id="table" value="#{mbStu.stuTable}" var="s" stickyHeader="true" styleClass="datatable" editable="true" resizeMode="fit"
+						expandedRow="false" rowExpandMode="multiple">
+						<f:facet name="header">
+							<h:outputText value="Student List" />
+							<p:commandButton id="toggler" type="button" value="" icon="pi-list" />
+							<p:columnToggler datasource="table" trigger="toggler" />
+						</f:facet>
+
+
+						<p:column headerText="rowToggler" style="width:6%">
+							<p:rowToggler />
+						</p:column>
+
+						<p:rowExpansion>
+							<p:panelGrid columns="2" style="width:50%">
+								<p:outputLabel value="ID" />
+								<h:outputText value="#{s.student_id}" />
+								<p:outputLabel value="English Name" />
+								<h:outputText value="#{s.student_ename}" />
+								<p:outputLabel value="Arabicc Name" />
+								<h:outputText value="#{s.student_aname}" />
+								<p:outputLabel value="BirthDate" />
+								<h:outputText value="#{s.birthdate}" />
+								<p:outputLabel value="Sex" />
+								<h:outputText value="#{s.sex}" />
+								<p:outputLabel value="Mobile" />
+								<h:outputText value="#{s.mobile}" />
+								<p:outputLabel value="Email" />
+								<h:outputText value="#{s.email}" />
+								<p:outputLabel value="University" />
+								<h:outputText value="#{s.university.university_ename}" />
+								<p:outputLabel value="School" />
+								<h:outputText value="#{s.school.school_ename}" />
+								<p:outputLabel value="Program" />
+								<h:outputText value="#{s.program.program_ename}" />
+								<p:outputLabel value="Average" />
+								<h:outputText value="#{s.final_avarage}" />
+								<p:outputLabel value="MAX Average" />
+								<h:outputText value="#{s.max_avarage}" />
+								<p:outputLabel value="Rate" />
+								<h:outputText value="#{s.rate}" />
+								<p:outputLabel value="Graduation Year" />
+								<h:outputText value="#{s.graduate_year}" />
+								<p:outputLabel value="Graduation Semester" />
+								<h:outputText value="#{s.graduate_year}" />
+								<f:facet name="footer">
+									<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbStu.removeStudent()}" ajax="false">
+										<f:setPropertyActionListener value="#{s}" target="#{mbStu.selectedStu}" />
+									</p:commandButton>
+									<p:commandButton value="Edit" action=":form:editPnl" onclick="PF('stuDlg').show()" ajax="false">
+										<f:setPropertyActionListener value="#{s}" target="#{mbStu.selectedStu}" />
+									</p:commandButton>
+								</f:facet>
+							</p:panelGrid>
+						</p:rowExpansion>
+
+						<p:column headerText="ID" style="width:50px">
+							<h:outputText value="#{s.student_id}" />
+						</p:column>
+						<p:column headerText="English Name" filterBy="#{s.student_ename}" style="width:25%">
+							<h:outputText value="#{s.student_ename}" />
+						</p:column>
+						<p:column headerText="Arabic Name" filterBy="#{s.student_aname}" style="width:15%">
+							<h:outputText value="#{s.student_aname}" />
+						</p:column>
+						<p:column headerText="University" style="width:10%">
+							<h:outputText value="#{s.university.university_ename}" />
+						</p:column>
+						<p:column headerText="School" style="width:10%">
+							<h:outputText value="#{s.school.school_ename}" />
+						</p:column>
+						<p:column headerText="Program" style="width:10%">
+							<h:outputText value="#{s.program.program_ename}" />
+						</p:column>
+						<p:column headerText="Rate" style="width:10%">
+							<h:outputText value="#{s.rate}" />
+						</p:column>
+						<p:column headerText="Graduation Year" style="width:10%">
+							<h:outputText value="#{s.graduate_year}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<h:outputText value="In total there are #{mbStu.stuTable.size()} Students" />
+						</f:facet>
+
+					</p:dataTable>
+				</p:panel>
+
+				<p:dialog header="Edit Student" modal="true" widgetVar="stuDlg">
+
+					<p:panelGrid id="editPnl" columns="2">
+
+						<p:outputLabel value="ID" />
+						<h:outputText value="#{mbStu.selectedStu.student_id}" />
+						<p:outputLabel value="English Name" />
+						<h:inputText value="#{mbStu.selectedStu.student_ename} " />
+						<p:outputLabel value="Arabicc Name" />
+						<h:inputText value="#{mbStu.selectedStu.student_aname}" />
+						<p:outputLabel value="BirthDate" />
+						<h:inputText value="#{mbStu.selectedStu.birthdate}" />
+						<p:outputLabel value="Sex" />
+						<h:inputText value="#{mbStu.selectedStu.sex}" />
+						<p:outputLabel value="Mobile" />
+						<h:inputText value="#{mbStu.selectedStu.mobile}" />
+						<p:outputLabel value="Email" />
+						<h:inputText value="#{mbStu.selectedStu.email}" />
+						<p:outputLabel value="University" />
+						<h:inputText value="#{mbStu.selectedStu.university.university_ename}" />
+						<p:outputLabel value="School" />
+						<h:inputText value="#{mbStu.selectedStu.school.school_ename}" />
+						<p:outputLabel value="Program" />
+						<h:inputText value="#{mbStu.selectedStu.program.program_ename}" />
+						<p:outputLabel value="Average" />
+						<h:inputText value="#{mbStu.selectedStu.final_avarage}" />
+						<p:outputLabel value="MAX Average" />
+						<h:inputText value="#{mbStu.selectedStu.max_avarage}" />
+						<p:outputLabel value="Rate" />
+						<h:inputText value="#{mbStu.selectedStu.rate}" />
+						<p:outputLabel value="Graduation Year" />
+						<h:inputText value="#{mbStu.selectedStu.graduate_year}" />
+						<p:outputLabel value="Graduation Semester" />
+						<h:inputText value="#{mbStu.selectedStu.sem}" />
+						<f:facet name="footer">
+							<p:commandButton value="save" action="#{mbStu.updateStudent()}" ajax="false" />
+							<p:commandButton value="back" type="button" onclick="PF('stuDlg').hide()" />
+						</f:facet>
+					</p:panelGrid>
+				</p:dialog>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

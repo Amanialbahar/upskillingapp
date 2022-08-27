@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Login page</title>
+</h:head>
+<body>
+	<h:form id="form">
+		<p:growl showDetail="true">
+			<p:autoUpdate />
+		</p:growl>
+
+
+		<p:panelGrid columns="2">
+			<f:facet name="header"> LOGIN PAGE</f:facet>
+			<p:outputLabel value="Username: *" />
+			<p:inputText value="#{mblogin.user.email}" required="true"
+				requiredMessage="Please enter your email" />
+			<p:outputLabel value="Password: *" />
+			<p:password id="pwd1" value="#{mblogin.user.pass}" feedback="false"
+				required="true" requiredMessage="Enter your password" />
+			<f:facet name="footer">
+				<p:commandButton action="#{mblogin.login()}" type="submit"
+					value="Login" />
+				<p:commandButton type="reset" value="reset" ajax="false" />
+			</f:facet>
+		</p:panelGrid>
+
+	</h:form>
+</body>
+</html>

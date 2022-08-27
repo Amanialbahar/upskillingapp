@@ -1,0 +1,104 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title">Adding Student</ui:define>
+	<ui:define name="content">
+
+		<h:form id="form">
+
+			<p:panelGrid columns="2">
+				<f:facet name="header">
+					<h:outputText value="Adding Student" />
+				</f:facet>
+
+				<p:outputLabel value="ID" for="id" />
+				<p:inputNumber id="id" value="#{mbAddStu.student.student_id}" decimalPlaces="0" decimalSeparator=" " thousandSeparator=" "
+					required="true" requiredMessage="Please enter Student id" />
+
+				<p:outputLabel value="Arabic Name" for="aname" />
+				<p:inputText id="aname" value="#{mbAddStu.student.student_aname}" maxlength="50" required="true"
+					requiredMessage="Please enter Student Arabic Name" validatorMessage="Please check the name" />
+
+				<p:outputLabel value="English Name" for="ename" />
+				<p:inputText id="ename" value="#{mbAddStu.student.student_ename}" maxlength="50" required="true"
+					requiredMessage="Please enter Student English Name" validatorMessage="Please check the name" />
+
+				<p:outputLabel value="Birthdate" for="birthdate" />
+				<p:calendar id="birthdate" value="#{mbAddStu.student.birthdate}" pattern="dd/MM/yyyy" required="true"
+					requiredMessage="Please select BirthDate" />
+
+				<p:outputLabel value="Gender" for="sex" />
+				<p:selectOneRadio id="sex" value="#{mbAddStu.student.sex}" required="true" requiredMessage="Please select sex">
+					<f:selectItem itemLabel="Male" itemValue="1" />
+					<f:selectItem itemLabel="Female" itemValue="2" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Mobile" />
+				<p:inputText value="#{mbAddStu.student.mobile}" required="true" validatorMessage="Please check your number">
+					<f:validateRegex pattern="^07[789][0-9]{7}$" />
+				</p:inputText>
+
+				<p:outputLabel value="Email" />
+				<p:inputText id="n5" value="#{mbAddStu.student.email}" required="true" requiredMessage="Enter your email adress">
+					<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.com)$" />
+				</p:inputText>
+
+				<p:outputLabel value="University" for="uni" />
+				<p:selectOneMenu id="uni" value="#{mbAddStu.student.university.university_id}" required="true"
+					requiredMessage="Please choose the University">
+					<f:selectItem itemLabel="Select one" itemValue="" />
+
+					<f:selectItems value="#{mbAddStu.uniTable}" var="u" itemLabel="#{u.university_ename}" itemValue="#{u.university_id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="School" for="school" />
+				<p:selectOneMenu id="school" value="#{mbAddStu.student.school.school_id}" required="true" requiredMessage="Please select School">
+
+					<f:selectItem itemLabel="Select One" itemValue="" />
+					<f:selectItems value="#{mbAddStu.schoolTable}" var="s" itemValue="#{s.school_id}" itemLabel="#{s.school_ename}" />
+					<f:ajax render="seleccion" />
+
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Program" />
+				<p:selectOneMenu id="seleccion" value="#{mbAddStu.student.program.program_id}" required="true" requiredMessage="Please choose Program">
+					<f:selectItem itemLabel="Select one" itemValue="" />
+					<f:selectItems value="#{mbAddStu.progTable}" var="p" itemLabel="#{p.program_ename}" itemValue="#{p.program_id}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Average" for="avg" />
+				<p:inputNumber id="avg" value="#{mbAddStu.student.final_avarage}" decimalPlaces="2" decimalSeparator="." thousandSeparator=" "
+					required="true" requiredMessage="Please enter Student Average" />
+
+				<p:outputLabel value="MAX Average" for="mavg" />
+				<p:inputNumber id="mavg" value="#{mbAddStu.student.max_avarage}" decimalPlaces="0" decimalSeparator=" " thousandSeparator=" "
+					required="true" requiredMessage="Please enter MAX Average" />
+
+				<p:outputLabel value="Rate" />
+				<p:selectOneRadio id="rate" value="#{mbAddStu.student.rate}" required="true" requiredMessage="Choose Rate">
+					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
+					<f:selectItem itemLabel="V.Good" itemValue="V.Good" />
+					<f:selectItem itemLabel="Good" itemValue="Good" />
+					<f:selectItem itemLabel="Accepted" itemValue="Accepted" />
+				</p:selectOneRadio>
+
+				<p:outputLabel value="Graduation Year" for="year" />
+				<p:calendar id="year" value="#{mbAddStu.student.graduate_year}" pattern="yyyy" required="true" requiredMessage="Please select Year" />
+
+				<p:outputLabel value="Graduation Semester" />
+				<p:selectOneRadio id="sem" value="#{mbAddStu.student.sem}" required="true" requiredMessage="Choose Semester">
+					<f:selectItem itemLabel="Fall" itemValue="1" />
+					<f:selectItem itemLabel="Spring" itemValue="2" />
+					<f:selectItem itemLabel="Summer" itemValue="3" />
+				</p:selectOneRadio>
+
+
+
+
+				<f:facet name="footer">
+					<p:commandButton value="Save" action="#{mbAddStu.save()}" ajax="false" />
+				</f:facet>
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

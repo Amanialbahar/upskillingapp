@@ -1,0 +1,99 @@
+@font-face {
+	font-family: 'Noto Kufi Arabic';
+	font-style: normal;
+	font-weight: 400;
+	src: url(/upskillingapp/resources/fonts/NotoKufiArabic-Regular.ttf)
+		format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Kufi Arabic';
+	font-style: normal;
+	font-weight: 700;
+	src: url(/upskillingapp/resources/fonts/NotoKufiArabic-Bold.ttf)
+		format('truetype');
+}
+
+.ui-widget-content {
+	border: 1px solid #ff9999;
+	background: #ffffff;
+	color: #e54e58;
+}
+
+.ui-widget-header a {
+	color: #e54e58;
+	text-align: center;
+}
+
+.ui-widget {
+	font-size: 0.96em;
+	font-family: 'Noto Kufi Arabic', serif;
+}
+
+.ui-widget-header {
+	border: 1px solid #ff9999;
+	background: #ff9999;
+	color: #e54e58 /*{fcHeader}*/;
+	font-weight: bold;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default,
+	.ui-widget-header .ui-state-default {
+	border: 1px solid #d3d3d3 /*{borderColorDefault}*/;
+	background: white;
+	font-weight: normal;
+	color: #e54e58;
+}
+
+.ui-panel-title {
+	margin: 0.1em 0px 0.2em 0;
+}
+
+.ui-growl {
+	right: 50%;
+	margin-right: -150px;
+}
+
+.footer {
+	align: center;
+	color: #e54e58;
+	font-weight: bold;
+}
+
+.centered{
+	align: center;
+}
+
+.contactsAR {
+	padding-top: 100px;
+	float: left;
+	overflow: hidden;
+}
+
+.contactsEN {
+	padding-top: 100px;
+	float: right;
+	overflow: hidden;
+}
+
+.logoEN {
+	float: left;
+	overflow: hidden;
+/*	background: url;*/
+	background-position: left;
+	background-repeat: no-repeat;
+	height: 140px;
+	width: 370px;
+	position: relative;
+	top: -10px;
+}
+
+.headerLogoEN {
+	float: right;
+	overflow: hidden;
+	padding-right: 5px;
+	padding-top: 30px;
+	font-size: 2em;
+	font-weight: bold;
+	color: white;
+}

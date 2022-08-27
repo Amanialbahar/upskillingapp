@@ -1,0 +1,43 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<h:form id="menuform">
+		<p:menubar>
+			<p:menuitem value="Home" outcome="/home.xhtml" />
+
+			<p:submenu label="UNIVERSITY">
+				<p:menuitem value="University List" outcome="/secuerd/university.xhtml" />
+				<p:menuitem value="University edit" outcome="/secuerd/university2.xhtml" />
+				<p:menuitem value="Add University" outcome="/secuerd/Add-university.xhtml" />
+			</p:submenu>
+
+			<p:submenu label="SCHOOL">
+				<p:menuitem value="School List" outcome="/secuerd/school.xhtml" />
+				<p:menuitem value="Add School" outcome="/secuerd/Add-school.xhtml" />
+			</p:submenu>
+
+			<p:submenu label="PROGRAM">
+				<p:menuitem value="Program List" outcome="/secuerd/Program.xhtml" />
+				<p:menuitem value="Add Program" outcome="/secuerd/Add-program.xhtml" />
+			</p:submenu>
+
+			<p:submenu label="TAINING COURSE">
+				<p:menuitem value="Courses List" outcome="/secuerd/TrainingCourse.xhtml" />
+				<p:menuitem value="Add Course" outcome="/secuerd/Add-TrainingCourse.xhtml" />
+			</p:submenu>
+
+			<p:submenu label="Student">
+				<p:menuitem value="Student List" outcome="/secuerd/Student.xhtml" />
+				<p:menuitem value="Add Student" outcome="/secuerd/Add-Student.xhtml" />
+				<p:menuitem value="Add Student Course" outcome="/secuerd/Add-StudentCourse.xhtml" />
+			</p:submenu>
+
+
+
+			<p:menuitem value="Logout" action="#{mbSec.logout()}" ajax="false" />
+
+		</p:menubar>
+	</h:form>
+
+
+</ui:composition>

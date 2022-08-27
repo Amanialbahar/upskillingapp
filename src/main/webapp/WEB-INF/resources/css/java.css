@@ -1,0 +1,16 @@
+@font-face {
+	font-family: 'Noto Kufi Arabic';
+	font-style: normal;
+	font-weight: 400;
+	src: url(/javacourse/resources/fonts/NotoKufiArabic-Regular.ttf)
+		format('truetype');
+}
+
+@font-face {
+	font-family: 'Noto Kufi Arabic';
+	font-style: normal;
+	font-weight: 700;
+	src: url(/javacourse/resources/fonts/NotoKufiArabic-Bold.ttf)
+		format('truetype');
+}
+

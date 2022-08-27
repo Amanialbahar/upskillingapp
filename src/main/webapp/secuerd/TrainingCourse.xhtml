@@ -1,0 +1,113 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title"> Training Courses</ui:define>
+	<ui:define name="content">
+		<h:body>
+			<h:form id="form">
+				<p:panel>
+					<p:dataTable id="table" value="#{mbTC.TCTable}" var="tc" stickyHeader="true" styleClass="datatable" editable="true" resizeMode="fit">
+						<f:facet name="header" expandedRow="false" rowExpandMode="multiple">
+							<h:outputText value="Training Course" />
+							<p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify"  />
+							<p:columnToggler datasource="table" trigger="toggler" />
+						</f:facet>
+
+						<p:column headerText="rowToggler" style="width:6%">
+							<p:rowToggler />
+						</p:column>
+
+						<p:rowExpansion>
+							<p:panelGrid columns="2" style="width:50%">
+								<p:outputLabel value="ID" />
+								<h:outputText value="#{tc.course_id}" />
+								<p:outputLabel value="English Name" />
+								<h:outputText value="#{tc.course_ename}" />
+								<p:outputLabel value="Arabicc Name" />
+								<h:outputText value="#{tc.course_aname}" />
+								<p:outputLabel value="Max. Students" />
+								<h:outputText value="#{tc.max_stu}" />
+								<p:outputLabel value="Course Overview" />
+								<h:outputText value="#{tc.short_desc}" />
+								<p:outputLabel value="Course Description" />
+								<h:outputText value="#{tc.detailed_desc}" />
+								<f:facet name="footer">
+									<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbTC.removeTC()}" ajax="false">
+										<f:setPropertyActionListener value="#{tc}" target="#{mbTC.selectedTC}" />
+									</p:commandButton>
+									<p:commandButton value="Edit"  action=":form:editPnl" update="" onclick="PF('tcDlg').show()" ajax="false">
+										<f:setPropertyActionListener value="#{tc}" target="#{mbTC.selectedTC}" />
+									</p:commandButton>
+
+								</f:facet>
+							</p:panelGrid>
+						</p:rowExpansion>
+
+						<p:column headerText="ID">
+							<h:outputText value="#{tc.course_id}" />
+						</p:column>
+						<p:column headerText="English Name" filterBy="#{tc.course_ename}">
+							<h:outputText value="#{tc.course_ename}" />
+						</p:column>
+						<p:column headerText="Arabic Name" filterBy="#{tc.course_aname}">
+							<h:outputText value="#{tc.course_aname}" />
+						</p:column>
+						<p:column headerText="Max. Students">
+							<h:outputText value="#{tc.max_stu}" />
+						</p:column>
+						<p:column headerText="Course Overview">
+							<h:outputText value="#{tc.short_desc}" />
+						</p:column>
+						<ui:remove>
+							<p:column headerText="Course Description">
+								<h:outputText value="#{tc.detailed_desc}" />
+							</p:column>
+						</ui:remove>
+
+						<f:facet name="footer">
+							<h:outputText value="In total there are #{mbTC.TCTable.size()} Courses" />
+						</f:facet>
+
+						<p:column headerText="Modification">
+							<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbTC.removeTC()}" ajax="false">
+								<f:setPropertyActionListener value="#{tc}" target="#{mbTC.selectedTC}" />
+							</p:commandButton>
+							<p:commandButton value="Edit"  update=":form:editPnl" onclick="PF('tcDlg').show()">
+								<f:setPropertyActionListener value="#{tc}" target="#{mbTC.selectedTC}" />
+							</p:commandButton>
+						</p:column>
+						
+					</p:dataTable>
+				</p:panel>
+					<p:dialog header="Edit Course" modal="true" widgetVar="tcDlg">
+
+							<p:panelGrid id="editPnl" columns="2">
+								<p:outputLabel value="ID" />
+								<h:outputText value="#{mbTC.selectedTC.course_id}" />
+
+								<p:outputLabel value="English Name" />
+								<h:inputText value="#{mbTC.selectedTC.course_ename}" />
+
+								<p:outputLabel value="Arabic Name" />
+								<h:inputText value="#{mbTC.selectedTC.course_aname}" />
+
+								<p:outputLabel value="Max. Students" />
+								<h:outputText value="15" />
+
+								<p:outputLabel value="Course Overview" />
+								<h:inputText value="#{mbTC.selectedTC.short_desc}" />
+
+								<p:outputLabel value="Course Description" />
+								<h:inputTextarea value="#{mbTC.selectedTC.detailed_desc}" />
+
+								<f:facet name="footer">
+									<p:commandButton value="save" action="#{mbTC.updateTC()}" ajax="false" />
+									<p:commandButton value="back" type="button" onclick="PF('tcDlg').hide()" />
+								</f:facet>
+							</p:panelGrid>
+
+						</p:dialog>
+				
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

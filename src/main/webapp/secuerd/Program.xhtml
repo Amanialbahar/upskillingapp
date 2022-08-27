@@ -1,0 +1,112 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title"> Program</ui:define>
+	<ui:define name="content">
+		<h:body>
+			<h:form id="form">
+				<p:panel>
+					<p:dataTable id="table" value="#{mbProgram.programTable}" var="p" stickyHeader="true" styleClass="datatable" editable="true"
+						resizeMode="fit" expandedRow="false" rowExpandMode="multiple">
+						<f:facet name="header">
+							<h:outputText value="program" />
+							<p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify" />
+							<p:columnToggler datasource="table" trigger="toggler" />
+						</f:facet>
+
+
+						<p:column headerText="rowToggler" style="width:6%">
+							<p:rowToggler />
+						</p:column>
+
+						<p:rowExpansion>
+							<p:panelGrid columns="2" style="width:50%">
+								<p:outputLabel value="Program ID" />
+								<h:outputText value="#{p.program_id}" />
+								<p:outputLabel value="School English Name" />
+								<h:outputText value="#{p.school.school_ename} " />
+								<p:outputLabel value="School Arabic Name" />
+								<h:outputText value="#{p.school.school_aname}" />
+								<p:outputLabel value="English Name" />
+								<h:outputText value="#{p.program_ename}" />
+								<p:outputLabel value="Arabic Name" />
+								<h:inputText value="#{mbProgram.selectedProgram.program_aname}" />
+								<f:facet name="footer">
+									<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbProgram.removeProgram()}" ajax="false">
+										<f:setPropertyActionListener value="#{p}" target="#{mbProgram.selectedProgram}" />
+									</p:commandButton>
+
+									<p:commandButton value="Edit" update=":form:editPnl" onclick="PF('proDlg').show()" ajax="false">
+										<f:setPropertyActionListener value="#{p}" target="#{mbProgram.selectedProgram}" />
+									</p:commandButton>
+								</f:facet>
+							</p:panelGrid>
+						</p:rowExpansion>
+
+						<p:column headerText="Program ID" style="width:50px">
+							<h:outputText value="#{p.program_id}" />
+						</p:column>
+
+
+						<p:column headerText="School Name">
+							<h:outputText value="#{p.school.school_ename} " />
+						</p:column>
+
+						<p:column headerText="English Name" filterBy="#{p.program_ename}" style="width:25%">
+							<h:outputText value="#{p.program_ename}" />
+						</p:column>
+						<p:column headerText="Arabic Name" filterBy="#{p.program_aname}" style="width:15%">
+							<h:outputText value="#{p.program_aname}" />
+						</p:column>
+
+						<f:facet name="footer">
+
+							<h:outputText value="In total there are #{mbProgram.programTable.size()} Programs" />
+						</f:facet>
+
+						<p:column headerText="Modification">
+							<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbProgram.removeProgram()}" ajax="false">
+								<f:setPropertyActionListener value="#{p}" target="#{mbProgram.selectedProgram}" />
+							</p:commandButton>
+
+							<p:commandButton value="Edit" update=":form:editPnl" onclick="PF('proDlg').show()">
+								<f:setPropertyActionListener value="#{p}" target="#{mbProgram.selectedProgram}" />
+							</p:commandButton>
+
+						</p:column>
+
+						<p:column headerText="Select">
+							<p:commandButton value="..." action="#{mbProgram.checkselection()}">
+								<f:setPropertyActionListener value="#{p}" target="#{mbProgram.selectedProgram}" />
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
+				</p:panel>
+
+				<p:dialog header="Edit program" modal="true" widgetVar="proDlg">
+
+					<p:panelGrid id="editPnl" columns="2">
+						<p:outputLabel value="School ID" />
+						<h:outputText value="#{mbProgram.selectedProgram.school.school_ename}" />
+
+						<p:outputLabel value="Program ID" />
+						<h:inputText value="#{mbProgram.selectedProgram.program_id}" />
+
+						<p:outputLabel value="English Name" />
+						<h:inputText value="#{mbProgram.selectedProgram.program_ename}" />
+
+						<p:outputLabel value="Arabic Name" />
+						<h:inputText value="#{mbProgram.selectedProgram.program_aname}" />
+
+						<f:facet name="footer">
+							<p:commandButton value="save" action="#{mbProgram.updateProgram()}" ajax="false" />
+							<p:commandButton value="back" type="button" onclick="PF('proDlg').hide()" />
+						</f:facet>
+					</p:panelGrid>
+
+				</p:dialog>
+
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

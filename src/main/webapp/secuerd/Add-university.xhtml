@@ -1,0 +1,41 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title"> Adding University </ui:define>
+	<ui:define name="content">
+		<h:body>
+			<h:form id="form">
+				<p:growl showDetail="true">
+					<p:autoUpdate />
+				</p:growl>
+
+				<p:panelGrid columns="2">
+					<f:facet name="header">
+						<h:outputText value="Add University" />
+					</f:facet>
+
+					<p:outputLabel value="ID" for="id" />
+					<p:inputNumber id="id" value="#{mbAddUniversity.university.university_id}" requiredMessage="Please enter University id"
+						decimalPlaces="0" />
+
+					<p:outputLabel value="English Name" for="ename" />
+					<p:inputText id="ename" value="#{mbAddUniversity.university.university_ename}" required="true"
+						requiredMessage="Please enter the english name" maxlength="50" validatorMessage="Please check the name" />
+
+					<p:outputLabel value="Arabic name" for="aname" />
+					<p:inputText id="aname" value="#{mbAddUniversity.university.university_aname}" required="true"
+						requiredMessage="Please enter the arabic name" maxlength="30" />
+
+					<p:outputLabel value="Website" for="website" />
+					<p:inputText id="website" value="#{mbAddUniversity.university.website}" required="true"
+						requiredMessage="Please enter the University website" maxlength="40" />
+
+					<f:facet name="footer">
+						<p:commandButton value="Save" action="#{mbAddUniversity.save()}" ajax="false" />
+					</f:facet>
+
+				</p:panelGrid>
+
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

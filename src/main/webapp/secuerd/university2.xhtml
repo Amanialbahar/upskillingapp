@@ -1,0 +1,98 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title"> University</ui:define>
+	<ui:define name="content">
+		<h:body>
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+				<p:panel>
+					<p:dataTable id="table" value="#{mbUniversity.universityTable}" var="u" stickyHeader="true" styleClass="datatable" editable="true"
+						resizeMode="fit" widgetVar="uni" >
+						
+            <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":form:msgs"/>
+            <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":form:msgs"/>
+						<f:facet name="header">
+							<h:outputText value="University" />
+							<p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify" />
+							<p:columnToggler datasource="table" trigger="toggler" />
+						</f:facet>
+
+						<p:column headerText="ID" style="width:50px">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{u.university_id}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText id="id" value="#{u.university_id}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+
+
+
+
+						<p:column headerText="English Name" filterBy="#{u.university_ename}" style="width:25%">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{u.university_ename}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText id="ename" value="#{u.university_ename}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
+							<p:column style="width:6rem">
+                <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+            </p:column>
+
+						</p:column>
+						<p:column headerText="Arabic Name" filterBy="#{u.university_aname}" style="width:15%">
+							<h:outputText value="#{u.university_aname}" />
+						</p:column>
+						<p:column headerText="Website" style="width:10%">
+							<h:outputText value="#{u.website}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<h:outputText value="In total there are #{mbUniversity.universityTable.size()} Universities" />
+						</f:facet>
+
+						<p:column headerText="Modification">
+							<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbUniversity.removeUniversity()}" ajax="false">
+								<f:setPropertyActionListener value="#{u}" target="#{mbUniversity.selectedUniversity}" />
+							</p:commandButton>
+
+							<p:commandButton value="Edit" type="button" action=":form:editPnl" update="" onclick="PF('uniDlg').show()" ajax="false">
+								<f:setPropertyActionListener value="#{u}" target="#{mbUniversity.selectedUniversity}" />
+							</p:commandButton>
+						</p:column>
+
+						<p:dialog header="Edit University" modal="true" widgetVar="uniDlg">
+
+							<p:panelGrid id="editPnl" columns="2">
+								<p:outputLabel value="ID" />
+								<h:outputText value="#{mbUniversity.selectedUniversity.university_id}" />
+
+								<p:outputLabel value="English Name" />
+								<h:inputText value="#{mbUniversity.selectedUniversity.university_ename}" />
+
+								<p:outputLabel value="Arabic Name" />
+								<h:inputText value="#{mbUniversity.selectedUniversity.university_aname}" />
+
+								<p:outputLabel value="Website" />
+								<h:inputText value="#{mbUniversity.selectedUniversity.website}" />
+
+								<f:facet name="footer">
+									<p:commandButton value="save" action="#{mbUniversity.updateUniversity()}" ajax="false" />
+									<p:commandButton value="back" type="button" onclick="PF('uniDlg').hide()" />
+								</f:facet>
+							</p:panelGrid>
+
+						</p:dialog>
+
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

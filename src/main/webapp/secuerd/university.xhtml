@@ -1,0 +1,101 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title"> University</ui:define>
+	<ui:define name="content">
+		<h:body>
+			<h:form id="form">
+				<p:panel>
+					<p:dataTable id="table" value="#{mbUniversity.universityTable}" var="u" expandedRow="false" rowExpandMode="multiple"
+						stickyHeader="true" styleClass="datatable" resizeMode="fit">
+						<f:facet name="header">
+							<h:outputText value="University" />
+							<p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify" />
+							<p:columnToggler datasource="table" trigger="toggler" />
+						</f:facet>
+
+
+						<p:column headerText="rowToggler" style="width:6%">
+							<p:rowToggler />
+						</p:column>
+
+						<p:rowExpansion>
+							<p:panelGrid columns="2" style="width:50%">
+								<p:outputLabel value="ID" />
+								<h:outputText value="#{u.university_id}" />
+								<p:outputLabel value="English Name" />
+								<h:outputText value="#{u.university_ename}" />
+								<p:outputLabel value="Arabicc Name" />
+								<h:outputText value="#{u.university_aname}" />
+								<p:outputLabel value="Website" />
+								<h:outputText value="#{u.website}" />
+								<f:facet name="footer">
+									<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbUniversity.removeUniversity()}" ajax="false">
+										<f:setPropertyActionListener value="#{u}" target="#{mbUniversity.selectedUniversity}" />
+									</p:commandButton>
+									<p:commandButton value="Edit" type="button" action=":form:editPnl" update="" onclick="PF('uniDlg').show()" ajax="false">
+										<f:setPropertyActionListener value="#{u}" target="#{mbUniversity.selectedUniversity}" />
+									</p:commandButton>
+								</f:facet>
+							</p:panelGrid>
+						</p:rowExpansion>
+
+						<p:column headerText="ID" style="width:50px">
+							<h:outputText value="#{u.university_id}" />
+						</p:column>
+						<p:column headerText="English Name" filterBy="#{u.university_ename}" style="width:25%">
+							<h:outputText value="#{u.university_ename}" />
+						</p:column>
+						<p:column headerText="Arabic Name" filterBy="#{u.university_aname}" style="width:15%">
+							<h:outputText value="#{u.university_aname}" />
+						</p:column>
+						<p:column headerText="Website" style="width:10%">
+							<h:outputText value="#{u.website}" />
+
+						</p:column>
+
+						<f:facet name="footer">
+							<h:outputText value="In total there are #{mbUniversity.universityTable.size()} Universities" />
+						</f:facet>
+
+						<p:column headerText="Modification">
+							<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbUniversity.removeUniversity()}" ajax="false">
+								<f:setPropertyActionListener value="#{u}" target="#{mbUniversity.selectedUniversity}" />
+							</p:commandButton>
+
+							<p:commandButton value="Edit" update=":form:editPnl" onclick="PF('uniDlg').show()">
+								<f:setPropertyActionListener value="#{u}" target="#{mbUniversity.selectedUniversity}" />
+							</p:commandButton>
+						</p:column>
+
+
+					</p:dataTable>
+				</p:panel>
+
+
+				<p:dialog header="Edit University" modal="true" widgetVar="uniDlg">
+
+					<p:panelGrid id="editPnl" columns="2">
+						<p:outputLabel value="ID" />
+						<h:outputText value="#{mbUniversity.selectedUniversity.university_id}" />
+
+						<p:outputLabel value="English Name" />
+						<h:inputText value="#{mbUniversity.selectedUniversity.university_ename}" />
+
+						<p:outputLabel value="Arabic Name" />
+						<h:inputText value="#{mbUniversity.selectedUniversity.university_aname}" />
+
+						<p:outputLabel value="Website" />
+						<h:inputText value="#{mbUniversity.selectedUniversity.website}" />
+
+						<f:facet name="footer">
+							<p:commandButton value="save" action="#{mbUniversity.updateUniversity()}" ajax="false" />
+							<p:commandButton value="back" type="button" onclick="PF('uniDlg').hide()" />
+						</f:facet>
+					</p:panelGrid>
+
+				</p:dialog>
+
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

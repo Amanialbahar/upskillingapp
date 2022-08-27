@@ -1,0 +1,44 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title"> Adding Program </ui:define>
+	<ui:define name="content">
+		<h:body>
+
+			<h:form id="form">
+				<p:growl showDetail="true">
+					<p:autoUpdate />
+				</p:growl>
+
+				<p:panelGrid columns="2">
+					<f:facet name="header">
+						<h:outputText value="Add Program" />
+					</f:facet>
+
+					<p:outputLabel value="School Name" for="school" />
+					<p:selectOneMenu id="school" value="#{mbAddpro.program.school.school_id}" required="true" requiredMessage="Please select School">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItems value="#{mbAddpro.schoolTable}" var="s" itemValue="#{s.school_id}" itemLabel="#{s.school_ename}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="ID" for="id" />
+					<p:inputNumber id="id" value="#{mbAddpro.program.program_id}" requiredMessage="Please enter Program id" decimalPlaces="0" />
+
+
+					<p:outputLabel value="English Name" for="ename" />
+					<p:inputText id="ename" value="#{mbAddpro.program.program_ename}" required="true" requiredMessage="Please enter the english name"
+						maxlength="50" validatorMessage="Please check the name" />
+
+					<p:outputLabel value="Arabic name" for="aname" />
+					<p:inputText id="aname" value="#{mbAddpro.program.program_aname}" required="true" requiredMessage="Please enter the arabic name"
+						maxlength="30" />
+
+					<f:facet name="footer">
+						<p:commandButton value="Save" action="#{mbAddpro.save()}" ajax="false" />
+					</f:facet>
+
+				</p:panelGrid>
+
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

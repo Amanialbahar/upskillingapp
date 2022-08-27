@@ -1,0 +1,98 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title"> School</ui:define>
+	<ui:define name="content">
+		<h:body>
+			<h:form id="form">
+				<p:panel>
+					<p:dataTable id="table" value="#{mbSchool.schoolTable}" var="s" stickyHeader="true" styleClass="datatable" editable="true"
+						resizeMode="fit" resizableColumns="true" expandedRow="false" rowExpandMode="multiple">
+						<f:facet name="header">
+							<h:outputText value="School" />
+							<p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify" />
+							<p:columnToggler datasource="table" trigger="toggler">
+								<p:ajax />
+							</p:columnToggler>
+						</f:facet>
+
+
+						<p:column headerText="rowToggler" style="width:6%">
+							<p:rowToggler />
+						</p:column>
+
+						<p:rowExpansion>
+							<p:panelGrid columns="2" style="width:50%">
+								<p:outputLabel value="ID" />
+								<h:outputText value="#{s.school_id}" />
+								<p:outputLabel value="English Name" />
+								<h:outputText value="#{s.school_ename}" />
+								<p:outputLabel value="Arabic Name" />
+								<h:outputText value="#{s.school_aname}" />
+								<f:facet name="footer">
+									<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbSchool.removeSxhool()}" ajax="false">
+										<f:setPropertyActionListener value="#{s}" target="#{mbSchool.selectedschool}" />
+									</p:commandButton>
+									<p:commandButton value="Edit" type="button" action=":form:editPnl" update="" onclick="PF('schoolDlg').show()" ajax="false">
+										<f:setPropertyActionListener value="#{s}" target="#{mbSchool.selectedschool}" />
+									</p:commandButton>
+								</f:facet>
+							</p:panelGrid>
+						</p:rowExpansion>
+
+						<p:column headerText="ID" style="width:50px">
+							<h:outputText value="#{s.school_id}" />
+						</p:column>
+						<p:column headerText="English Name" filterBy="#{s.school_ename}" style="width:25%">
+							<h:outputText value="#{s.school_ename}" />
+						</p:column>
+						<p:column headerText="Arabic Name" filterBy="#{s.school_aname}" style="width:15%">
+							<h:outputText value="#{s.school_aname}" />
+						</p:column>
+
+						<p:column headerText="Select">
+							<p:commandButton value="..." action="#{mbSchool.checkselection()}">
+								<f:setPropertyActionListener value="#{s}" target="#{mbSchool.selectedschool}" />
+							</p:commandButton>
+						</p:column>
+
+						<p:column headerText="Modification">
+							<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbSchool.removeSxhool()}" ajax="false">
+								<f:setPropertyActionListener value="#{s}" target="#{mbSchool.selectedschool}" />
+							</p:commandButton>
+							<p:commandButton value="Edit" update=":form:editPnl" onclick="PF('schoolDlg').show()">
+								<f:setPropertyActionListener value="#{s}" target="#{mbSchool.selectedschool}" />
+							</p:commandButton>
+
+						</p:column>
+
+						<f:facet name="footer">
+							<h:outputText value="In total there are #{mbSchool.schoolTable.size()} Schools" />
+						</f:facet>
+
+					</p:dataTable>
+				</p:panel>
+
+				<p:dialog header="Edit School" widgetVar="schoolDlg">
+
+					<p:panelGrid id="editPnl" columns="2">
+						<p:outputLabel value="ID" />
+						<h:outputText value="#{mbSchool.selectedschool.school_id}" />
+
+						<p:outputLabel value="English Name" />
+						<h:inputText value="#{mbSchool.selectedschool.school_ename}" />
+
+						<p:outputLabel value="Arabic Name" />
+						<h:inputText value="#{mbSchool.selectedschool.school_aname}" />
+
+						<f:facet name="footer">
+							<p:commandButton value="save" action="#{mbSchool.updateSchool()}" ajax="false" />
+							<p:commandButton value="back" type="button" onclick="PF('schoolDlg').hide()" />
+						</f:facet>
+					</p:panelGrid>
+
+				</p:dialog>
+
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>
