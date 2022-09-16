@@ -1,4 +1,4 @@
-a<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
 	<ui:define name="title"> Adding Student Result </ui:define>
 	<ui:define name="content">
@@ -7,13 +7,46 @@ a<ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w
 				<p:growl showDetail="true">
 					<p:autoUpdate />
 				</p:growl>
+				<div align="center">
+					<p:panelGrid columns="2">
+						<f:facet name="header">
+							<h:outputText value="Adding Student Result" />
+						</f:facet>
 
-				<p:panelGrid columns="2">
-					<f:facet name="header">
-						<h:outputText value="Adding Student Course" />
-					</f:facet>
+						<p:outputLabel value="Student Name" for="name" />
+						<p:selectOneMenu id="name" value="#{mbAddResult.stuResult.student.student_ename}" required="true"
+							requiredMessage="Please enter Student Name">
+							<f:selectItem itemLabel="Select one" itemValue="" />
+							<f:selectItems value="#{mbAddResult.stutable}" var="s" itemValue="#{s.student_id}" itemLabel="#{s.student_ename}" />
+						</p:selectOneMenu>
 
+						<p:outputLabel value="Track" for="tc" />
+						<p:selectOneMenu id="tc" value="#{mbAddResult.stuResult.course.course_ename}" required="true"
+							requiredMessage="Please enter Student Training course">
+							<f:selectItem itemValue="" itemLabel="Select One" />
+							<f:selectItems value="#{mbAddResult.stuTCtable}" var="c" itemValue="#{c.course_id}" itemLabel="#{c.course_ename}" />
+						</p:selectOneMenu>
 
+						<p:outputLabel value="English Mark" />
+						<p:inputNumber value="#{mbAddResult.stuResult.english_mark}" />
+
+						<p:outputLabel value="Interview Mark" />
+						<p:inputNumber value="#{mbAddResult.stuResult.interview_mark}" />
+
+						<p:outputLabel value="Accepted Flag" />
+						<p:selectOneRadio id="f" value="#{mbAddResult.stuResult.accepted_flag}" required="true" requiredMessage="Please select stauts">
+							<f:selectItem itemLabel="Not Accepted" itemValue="0" />
+							<f:selectItem itemLabel="Accepted" itemValue="1" />
+						</p:selectOneRadio>
+
+						<p:outputLabel value="Notes" />
+						<p:inputTextarea value="#{mbAddResult.stuResult.notes}" />
+
+						<f:facet name="footer">
+							<p:commandButton value="Save" action="#{mbAddResult.save()}" ajax="false" />
+						</f:facet>
+					</p:panelGrid>
+				</div>
 			</h:form>
 		</h:body>
 	</ui:define>

@@ -13,53 +13,24 @@
 							<p:columnToggler datasource="table" trigger="toggler" />
 						</f:facet>
 
-
-						<p:column headerText="rowToggler" style="width:6%">
-							<p:rowToggler />
-						</p:column>
-
-						<p:rowExpansion>
-							<p:panelGrid columns="2" style="width:50%">
-								<p:outputLabel value="Program ID" />
-								<h:outputText value="#{p.program_id}" />
-								<p:outputLabel value="School English Name" />
-								<h:outputText value="#{p.school.school_ename} " />
-								<p:outputLabel value="School Arabic Name" />
-								<h:outputText value="#{p.school.school_aname}" />
-								<p:outputLabel value="English Name" />
-								<h:outputText value="#{p.program_ename}" />
-								<p:outputLabel value="Arabic Name" />
-								<h:inputText value="#{mbProgram.selectedProgram.program_aname}" />
-								<f:facet name="footer">
-									<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbProgram.removeProgram()}" ajax="false">
-										<f:setPropertyActionListener value="#{p}" target="#{mbProgram.selectedProgram}" />
-									</p:commandButton>
-
-									<p:commandButton value="Edit" update=":form:editPnl" onclick="PF('proDlg').show()" ajax="false">
-										<f:setPropertyActionListener value="#{p}" target="#{mbProgram.selectedProgram}" />
-									</p:commandButton>
-								</f:facet>
-							</p:panelGrid>
-						</p:rowExpansion>
-
-						<p:column headerText="Program ID" style="width:50px">
+						<p:column headerText="ID" style="width:50px;text-align: center">
 							<h:outputText value="#{p.program_id}" />
 						</p:column>
 
 
-						<p:column headerText="School Name">
+						<p:column headerText="School Name" style="text-align: center">
 							<h:outputText value="#{p.school.school_ename} " />
 						</p:column>
 
-						<p:column headerText="English Name" filterBy="#{p.program_ename}" style="width:25%">
+						<p:column headerText="English Name" filterBy="#{p.program_ename}" style="text-align: center">
 							<h:outputText value="#{p.program_ename}" />
 						</p:column>
-						<p:column headerText="Arabic Name" filterBy="#{p.program_aname}" style="width:15%">
+						<p:column headerText="Arabic Name" filterBy="#{p.program_aname}" style="text-align: center">
 							<h:outputText value="#{p.program_aname}" />
 						</p:column>
 
 						<f:facet name="footer">
-
+							<p:commandButton value="Report" action="#{mbProgram.runProReport()}" ajax="false" />
 							<h:outputText value="In total there are #{mbProgram.programTable.size()} Programs" />
 						</f:facet>
 
@@ -68,14 +39,7 @@
 								<f:setPropertyActionListener value="#{p}" target="#{mbProgram.selectedProgram}" />
 							</p:commandButton>
 
-							<p:commandButton value="Edit" update=":form:editPnl" onclick="PF('proDlg').show()">
-								<f:setPropertyActionListener value="#{p}" target="#{mbProgram.selectedProgram}" />
-							</p:commandButton>
-
-						</p:column>
-
-						<p:column headerText="Select">
-							<p:commandButton value="..." action="#{mbProgram.checkselection()}">
+							<p:commandButton value="Edit" process="@this" update=":form:editPnl" onclick="PF('proDlg').show()">
 								<f:setPropertyActionListener value="#{p}" target="#{mbProgram.selectedProgram}" />
 							</p:commandButton>
 						</p:column>

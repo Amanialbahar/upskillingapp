@@ -18,6 +18,29 @@ public class UniversityDAO {
 	private ArrayList<University> universityTable;
 	private int row;
 
+	// **selectmaxid
+	private int selectMaxId(Connection connection) {
+		PreparedStatement ps2 = null;
+		ResultSet rs2 = null;
+		try {
+			connection = db.getConnection();
+			ps2 = connection.prepareStatement("select nvl(max(university_id),0) AS University_Id from university");
+			rs2 = ps2.executeQuery();
+			if (rs2.next()) {
+
+				return rs2.getInt("university_id");
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Databasea.close(rs2);
+			Databasea.close(ps2);
+
+		}
+		return 0;
+	}
+
 	// **select by Id **
 
 	public University selectbyId(int university_id) {
@@ -28,17 +51,15 @@ public class UniversityDAO {
 			connection = db.getConnection();
 			ps = connection.prepareStatement(
 					"select university_id, university_aname, university_ename, website from university where university_id= ?");
-			
 
-
-			ps.setInt(1,university_id);
+			ps.setInt(1, university_id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				univesity = new University(rs.getInt("university_id"), rs.getString("university_aname"),
 						rs.getString("university_ename"), rs.getString("website"));
 			}
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		} finally {
 
@@ -86,9 +107,10 @@ public class UniversityDAO {
 			connection = db.getConnection();
 			ps = connection.prepareStatement(
 					"insert into university(university_id, university_aname, university_ename, website) values(?, ?, ?, ?)");
-
+			int maxId = selectMaxId(connection);
 			int counter = 1;
-			ps.setInt(counter++, university.getUniversity_id());
+			// ps.setInt(counter++, university.getUniversity_id());
+			ps.setInt(counter++, maxId + 1);
 			ps.setString(counter++, university.getUniversity_aname());
 			ps.setString(counter++, university.getUniversity_ename());
 			ps.setString(counter++, university.getWebsite());

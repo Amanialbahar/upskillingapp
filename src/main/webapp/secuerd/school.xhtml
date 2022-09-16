@@ -15,47 +15,17 @@
 							</p:columnToggler>
 						</f:facet>
 
-
-						<p:column headerText="rowToggler" style="width:6%">
-							<p:rowToggler />
-						</p:column>
-
-						<p:rowExpansion>
-							<p:panelGrid columns="2" style="width:50%">
-								<p:outputLabel value="ID" />
-								<h:outputText value="#{s.school_id}" />
-								<p:outputLabel value="English Name" />
-								<h:outputText value="#{s.school_ename}" />
-								<p:outputLabel value="Arabic Name" />
-								<h:outputText value="#{s.school_aname}" />
-								<f:facet name="footer">
-									<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbSchool.removeSxhool()}" ajax="false">
-										<f:setPropertyActionListener value="#{s}" target="#{mbSchool.selectedschool}" />
-									</p:commandButton>
-									<p:commandButton value="Edit" type="button" action=":form:editPnl" update="" onclick="PF('schoolDlg').show()" ajax="false">
-										<f:setPropertyActionListener value="#{s}" target="#{mbSchool.selectedschool}" />
-									</p:commandButton>
-								</f:facet>
-							</p:panelGrid>
-						</p:rowExpansion>
-
-						<p:column headerText="ID" style="width:50px">
+						<p:column headerText="ID" style="width:50px;text-align: center">
 							<h:outputText value="#{s.school_id}" />
 						</p:column>
-						<p:column headerText="English Name" filterBy="#{s.school_ename}" style="width:25%">
+						<p:column headerText="English Name" filterBy="#{s.school_ename}" style="text-align: center">
 							<h:outputText value="#{s.school_ename}" />
 						</p:column>
-						<p:column headerText="Arabic Name" filterBy="#{s.school_aname}" style="width:15%">
+						<p:column headerText="Arabic Name" filterBy="#{s.school_aname}" style="text-align: center">
 							<h:outputText value="#{s.school_aname}" />
 						</p:column>
 
-						<p:column headerText="Select">
-							<p:commandButton value="..." action="#{mbSchool.checkselection()}">
-								<f:setPropertyActionListener value="#{s}" target="#{mbSchool.selectedschool}" />
-							</p:commandButton>
-						</p:column>
-
-						<p:column headerText="Modification">
+						<p:column headerText="Modification" style="text-align: center">
 							<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbSchool.removeSxhool()}" ajax="false">
 								<f:setPropertyActionListener value="#{s}" target="#{mbSchool.selectedschool}" />
 							</p:commandButton>
@@ -66,6 +36,8 @@
 						</p:column>
 
 						<f:facet name="footer">
+							<p:commandButton value="Report" action="#{mbSchool.runSchoolReport()}" ajax="false" />
+
 							<h:outputText value="In total there are #{mbSchool.schoolTable.size()} Schools" />
 						</f:facet>
 

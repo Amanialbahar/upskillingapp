@@ -15,7 +15,7 @@ public class MBSecurity {
 	private boolean logon;
 
 	public String checkUser() {
-		if (username.equalsIgnoreCase("java") && password.equals("123")) {
+		if (username.equalsIgnoreCase("java") && password.equals("Java@2022")) {
 			logon = true;
 			return "/home.xhtml";
 		} else {

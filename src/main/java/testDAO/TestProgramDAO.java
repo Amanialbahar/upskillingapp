@@ -46,12 +46,12 @@ public class TestProgramDAO {
 		List<String> table = dao.selectSchools();
 		System.out.println(table);
 		
-		List<String> proTable =dao.getProgBySchool(1);
-		System.out.println(proTable);
-		List<String> proTable1 =dao.getProgBySchool(2);
-		System.out.println(proTable1);
-		List<String> proTable11 =dao.getProgBySchool(3);
-		System.out.println(proTable11);
+//		List<String> proTable =dao.getProgBySchool(1);
+//		System.out.println(proTable);
+//		List<String> proTable1 =dao.getProgBySchool(2);
+//		System.out.println(proTable1);
+//		List<String> proTable11 =dao.getProgBySchool(3);
+//		System.out.println(proTable11);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import Bean.Program;
 import Bean.School;
@@ -23,9 +24,8 @@ public class MbAddStudent {
 
 	private Student student;
 	private List<University> uniTable;
-	// private List<Program> progTable;
-	private Program progTable;
 	private List<School> schoolTable;
+	private List<Program> progTable;
 	private StudentDAO stuDao;
 
 	@PostConstruct
@@ -35,23 +35,17 @@ public class MbAddStudent {
 		UniversityDAO uni = new UniversityDAO();
 		uniTable = uni.selectAll();
 
-//		ProgramDAO prog = new ProgramDAO();
-//		progTable = prog.selectall();
-
-		ProgramDAO dao = new ProgramDAO();
-		progTable = dao.selectbyIdp(student.getProgram().getSchool().getSchool_id());
-		System.out.println(progTable);
-
 		SchoolDAO sdao = new SchoolDAO();
 		schoolTable = sdao.selectAll();
-
 	}
 
-//	public void getProgBySchool() {
-//		ProgramDAO dao = new ProgramDAO();
-//		progTable = dao.selectbyIdp(student.getProgram().getSchool().getSchool_id());
-//		System.out.println(progTable);
-//	}
+	public void getProgBySchool(final AjaxBehaviorEvent event) {
+		System.out.println("School");
+		System.out.println(student.getSchool().getSchool_id());
+		ProgramDAO dao = new ProgramDAO();
+		setProgTable(dao.getProgBySchool(student.getSchool().getSchool_id()));
+		System.out.println(getProgTable());
+	}
 
 	public String save() {
 		stuDao.insert(student);
@@ -90,14 +84,6 @@ public class MbAddStudent {
 		return schoolTable;
 	}
 
-	public Program getProgTable() {
-		return progTable;
-	}
-
-	public void setProgTable(Program progTable) {
-		this.progTable = progTable;
-	}
-
 	public void setSchoolTable(List<School> schoolTable) {
 		this.schoolTable = schoolTable;
 	}
@@ -108,6 +94,14 @@ public class MbAddStudent {
 
 	public void setStuDao(StudentDAO stuDao) {
 		this.stuDao = stuDao;
+	}
+
+	public List<Program> getProgTable() {
+		return progTable;
+	}
+
+	public void setProgTable(List<Program> progTable) {
+		this.progTable = progTable;
 	}
 
 }

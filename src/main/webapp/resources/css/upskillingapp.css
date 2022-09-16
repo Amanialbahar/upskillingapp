@@ -18,23 +18,30 @@
 	border: 1px solid #ff9999;
 	background: #ffffff;
 	color: #e54e58;
+	font-size: 20px;
 }
 
 .ui-widget-header a {
 	color: #e54e58;
 	text-align: center;
+	font-size: large;
 }
 
 .ui-widget {
 	font-size: 0.96em;
+	color: #e54e58;
 	font-family: 'Noto Kufi Arabic', serif;
 }
 
 .ui-widget-header {
 	border: 1px solid #ff9999;
 	background: #ff9999;
+	/*background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);
+	box-shadow : 0 5px 15px rgba( 242, 97, 103, .4); */
 	color: #e54e58 /*{fcHeader}*/;
 	font-weight: bold;
+	color: #e54e58 /*{fcHeader}*/;
+	box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default,
@@ -55,31 +62,39 @@
 }
 
 .footer {
+	background: #ff9999;
 	align: center;
 	color: #e54e58;
 	font-weight: bold;
+	align: center;
 }
 
-.centered{
+.centered {
 	align: center;
 }
 
 .contactsAR {
-	padding-top: 100px;
+	padding-top: 10px;
 	float: left;
 	overflow: hidden;
 }
 
 .contactsEN {
-	padding-top: 100px;
+	padding-top: 10px;
 	float: right;
-	overflow: hidden;
 }
 
+.headerFlex {
+	display: grid;
+}
+/*
+.0headerFlex>div {
+	display: flex;
+}*/
 .logoEN {
 	float: left;
 	overflow: hidden;
-/*	background: url;*/
+	/*	background: url;*/
 	background-position: left;
 	background-repeat: no-repeat;
 	height: 140px;
@@ -88,12 +103,35 @@
 	top: -10px;
 }
 
-.headerLogoEN {
+.logoAR {
 	float: right;
 	overflow: hidden;
+	/*	background: url;*/
+	background-position: right;
+	background-repeat: no-repeat;
+	height: 140px;
+	width: 370px;
+	position: relative;
+	top: -10px;
+	background-repeat: no-repeat;
+}
+
+.headerLogoEN {
+	float: right;
 	padding-right: 5px;
 	padding-top: 30px;
 	font-size: 2em;
 	font-weight: bold;
 	color: white;
+}
+
+p {
+	font-size: large;
+}
+
+.h3 {
+	border-left-style: solid;
+	background-color: #ff9999;
+	border-color: #e54e58;
+	width: 30%
 }

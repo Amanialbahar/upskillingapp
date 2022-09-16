@@ -13,47 +13,21 @@
 							<p:columnToggler datasource="table" trigger="toggler" />
 						</f:facet>
 
-
-						<p:column headerText="rowToggler" style="width:6%">
-							<p:rowToggler />
-						</p:column>
-
-						<p:rowExpansion>
-							<p:panelGrid columns="2" style="width:50%">
-								<p:outputLabel value="ID" />
-								<h:outputText value="#{u.university_id}" />
-								<p:outputLabel value="English Name" />
-								<h:outputText value="#{u.university_ename}" />
-								<p:outputLabel value="Arabicc Name" />
-								<h:outputText value="#{u.university_aname}" />
-								<p:outputLabel value="Website" />
-								<h:outputText value="#{u.website}" />
-								<f:facet name="footer">
-									<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbUniversity.removeUniversity()}" ajax="false">
-										<f:setPropertyActionListener value="#{u}" target="#{mbUniversity.selectedUniversity}" />
-									</p:commandButton>
-									<p:commandButton value="Edit" type="button" action=":form:editPnl" update="" onclick="PF('uniDlg').show()" ajax="false">
-										<f:setPropertyActionListener value="#{u}" target="#{mbUniversity.selectedUniversity}" />
-									</p:commandButton>
-								</f:facet>
-							</p:panelGrid>
-						</p:rowExpansion>
-
-						<p:column headerText="ID" style="width:50px">
+						<p:column headerText="ID" style="width:50px;text-align: center">
 							<h:outputText value="#{u.university_id}" />
 						</p:column>
-						<p:column headerText="English Name" filterBy="#{u.university_ename}" style="width:25%">
+						<p:column headerText="English Name" filterBy="#{u.university_ename}" style="text-align: center">
 							<h:outputText value="#{u.university_ename}" />
 						</p:column>
-						<p:column headerText="Arabic Name" filterBy="#{u.university_aname}" style="width:15%">
+						<p:column headerText="Arabic Name" filterBy="#{u.university_aname}" style="text-align: center">
 							<h:outputText value="#{u.university_aname}" />
 						</p:column>
-						<p:column headerText="Website" style="width:10%">
-							<h:outputText value="#{u.website}" />
-
+						<p:column headerText="Website" style="text-align: center">
+							<p:link value="#{u.website}" href="#{u.website}" target="_blanck" onmouseover="pointer" style="color:#e54e58" />
 						</p:column>
 
 						<f:facet name="footer">
+							<p:commandButton value="Report" action="#{mbUniversity.runUniReport()}" ajax="false" />
 							<h:outputText value="In total there are #{mbUniversity.universityTable.size()} Universities" />
 						</f:facet>
 
@@ -66,11 +40,8 @@
 								<f:setPropertyActionListener value="#{u}" target="#{mbUniversity.selectedUniversity}" />
 							</p:commandButton>
 						</p:column>
-
-
 					</p:dataTable>
 				</p:panel>
-
 
 				<p:dialog header="Edit University" modal="true" widgetVar="uniDlg">
 

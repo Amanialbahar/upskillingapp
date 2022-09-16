@@ -15,20 +15,7 @@ public class Databasea {
 		return connection;
 	}
 
-	//public Connection getConnection() throws Exception {
-//		Context cx = null;
-//		try {
-//			Connection conn = null;
-//			DataSource ds = null;
-//			cx = new InitialContext();
-//			ds = (DataSource) cx.lookup("java:/ScottDS");
-//			// ds = (DataSource) cx.lookup("jdbc/SisConnDevDS");
-//			conn = ds.getConnection();
-//			return conn;
-//		} finally {
-//			cx.close();
-//		}
-//	}
+
 	
 	public static void close(ResultSet rs) {
 

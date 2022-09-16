@@ -23,7 +23,7 @@ public class TestStudentResultDAO {
 
 		// **insert**
 		System.out.println("---------------------------------");
-		studentResult = new StudentResult(95, 90, 1, "there is no notes");
+		studentResult = new StudentResult(95, 90, true, "there is no notes");
 		studentResult.setStudent(new Student(4));
 		studentResult.setCourse(new TrainingCourse(1));
 		row = dao.insert(studentResult);
@@ -32,7 +32,7 @@ public class TestStudentResultDAO {
 
 		// **update**
 		System.out.println("---------------------------------");
-		studentResult.setAccepted_flag(2);
+		studentResult.setAccepted_flag(true);
 		row = dao.update(studentResult);
 		System.out.println(row + " updated");
 

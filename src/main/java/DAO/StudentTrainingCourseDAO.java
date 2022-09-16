@@ -29,7 +29,7 @@ public class StudentTrainingCourseDAO {
 			db = new Databasea();
 			connection = db.getConnection();
 			ps = connection.prepareStatement(
-					"select student_id, course_id, prioority from student_training_course order by student_id");
+					"select student_id, course_id, prioority from student_training_course order by student_id, prioority");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {

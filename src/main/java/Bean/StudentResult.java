@@ -6,14 +6,14 @@ public class StudentResult {
 	private TrainingCourse course;
 	private int english_mark;
 	private int interview_mark;
-	private int accepted_flag;
+	private boolean accepted_flag;
 	private String notes;
 
 	public StudentResult() {
 	}
 
 	public StudentResult(Student student, TrainingCourse course, int english_mark, int interview_mark,
-			int accepted_flag, String notes) {
+			boolean accepted_flag, String notes) {
 
 		this.student = student;
 		this.course = course;
@@ -23,7 +23,7 @@ public class StudentResult {
 		this.notes = notes;
 	}
 
-	public StudentResult(int english_mark, int interview_mark, int accepted_flag, String notes) {
+	public StudentResult(int english_mark, int interview_mark, boolean accepted_flag, String notes) {
 
 		this.english_mark = english_mark;
 		this.interview_mark = interview_mark;
@@ -63,11 +63,12 @@ public class StudentResult {
 		this.interview_mark = interview_mark;
 	}
 
-	public int getAccepted_flag() {
+
+	public boolean isAccepted_flag() {
 		return accepted_flag;
 	}
 
-	public void setAccepted_flag(int accepted_flag) {
+	public void setAccepted_flag(boolean accepted_flag) {
 		this.accepted_flag = accepted_flag;
 	}
 

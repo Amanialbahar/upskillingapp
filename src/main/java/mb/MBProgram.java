@@ -4,9 +4,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import Bean.Program;
 import DAO.ProgramDAO;
+import report.Reports;
 
+@ViewScoped
 @ManagedBean(name = "mbProgram")
 public class MBProgram {
 
@@ -29,6 +33,7 @@ public class MBProgram {
 
 	public String updateProgram() {
 		System.out.println("updated");
+		System.out.println("SelectedProgram: " + SelectedProgram);
 		programDAO.update(SelectedProgram);
 		programTable = programDAO.selectall();
 		System.out.println("x");
@@ -38,6 +43,18 @@ public class MBProgram {
 	public String removeProgram() {
 		programDAO.delete(SelectedProgram.getProgram_id());
 		programTable = programDAO.selectall();
+		return null;
+	}
+
+	public String runProReport() throws Exception {
+
+//		Map<String, Object> param = new HashMap<String, Object>();
+//		BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/image/HTULogo-250px.png"));
+//		param.put("p_image", image);
+
+		Reports report = new Reports();
+		report.runPdf("program.jasper", null);
+
 		return null;
 	}
 
@@ -58,6 +75,9 @@ public class MBProgram {
 	}
 
 	public Program getSelectedProgram() {
+		if (SelectedProgram == null) {
+			SelectedProgram = new Program();
+		}
 		return SelectedProgram;
 	}
 

@@ -1,13 +1,21 @@
 package mb;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 
 import Bean.University;
 import DAO.UniversityDAO;
+import report.Reports;
 
 @ViewScoped
 @ManagedBean(name = "mbUniversity")
@@ -40,6 +48,21 @@ public class MbUniversity {
 	public String removeUniversity() {
 		universityDAO.delete(selectedUniversity.getUniversity_id());
 		universityTable = universityDAO.selectAll();
+		return null;
+	}
+
+	public void redirect() throws IOException {
+		System.out.println(selectedUniversity.getWebsite());
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		externalContext.redirect(selectedUniversity.getWebsite());
+	}
+
+	public String runUniReport() throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/images/ictlogo.png"));
+		param.put("P_image", image);
+		Reports report = new Reports();
+		report.runPdf("university.jasper", null);
 		return null;
 	}
 

@@ -58,7 +58,7 @@ public class Program {
 
 	@Override
 	public String toString() {
-		return "Program [program_id=" + program_id + ", school_id=" + school.getSchool_id() + ", program_aname=" + program_aname
+		return "Program [program_id=" + program_id +  ", program_aname=" + program_aname
 				+ ", program_ename=" + program_ename + "]+\n";
 	}
 

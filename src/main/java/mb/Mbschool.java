@@ -1,13 +1,19 @@
 package mb;
 
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.imageio.ImageIO;
 
 import Bean.School;
 import DAO.SchoolDAO;
+import report.Reports;
+
 @ViewScoped
 @ManagedBean(name = "mbSchool")
 public class Mbschool {
@@ -39,6 +45,15 @@ public class Mbschool {
 	public String removeSxhool() {
 		schoolDAO.delete(selectedschool.getSchool_id());
 		schoolTable = schoolDAO.selectAll();
+		return null;
+	}
+
+	public String runSchoolReport() throws Exception {
+//		Map<String, Object> param = new HashMap<String, Object>();
+//		BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/images/ictlogo.png"));
+//		param.put("P_image", image);
+		Reports report = new Reports();
+		report.runPdf("school.jasper", null);
 		return null;
 	}
 

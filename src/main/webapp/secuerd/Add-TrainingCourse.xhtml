@@ -1,41 +1,38 @@
 <ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
-	<ui:define name="title"> Adding Training Course </ui:define>
+	<ui:define name="title"> Adding Track </ui:define>
 	<ui:define name="content">
 		<h:body>
 			<h:form id="form">
 				<p:growl showDetail="true">
 					<p:autoUpdate />
 				</p:growl>
+				<div align="center">
+					<p:panelGrid columns="2">
 
-				<p:panelGrid columns="2">
+						<f:facet name="header">
+							<h:outputLabel value="Add Track" />
+						</f:facet>
 
-					<f:facet name="header">
-						<h:outputLabel value="Add Training Course" />
-					</f:facet>
+						<p:outputLabel value="Course English Name" />
+						<p:inputText value="#{mbAddTC.selectedTC.course_ename}" requiredMessage="Please enter course english name" />
 
-					<p:outputLabel value="Course ID" />
-					<p:inputNumber value="#{mbAddTC.selectedTC.course_id}" requiredMessage="Please enter Course id" decimalPlaces="0" />
+						<p:outputLabel value="Course Arabic Name" />
+						<p:inputText value="#{mbAddTC.selectedTC.course_aname}" requiredMessage="Please enter course arabic name" />
 
-					<p:outputLabel value="Course English Name" />
-					<p:inputText value="#{mbAddTC.selectedTC.course_ename}" requiredMessage="Please enter course english name" />
-
-					<p:outputLabel value="Course Arabic Name" />
-					<p:inputText value="#{mbAddTC.selectedTC.course_aname}" requiredMessage="Please enter course arabic name" />
-
-					<p:outputLabel value="Course Overview" />
-					<p:inputText value="#{mbAddTC.selectedTC.short_desc}" requiredMessage="Please enter course overview" />
+						<p:outputLabel value="Course Overview" />
+						<p:inputText value="#{mbAddTC.selectedTC.short_desc}" requiredMessage="Please enter course overview" />
 
 
-					<p:outputLabel value="Course Description" />
-					<p:inputTextarea value="#{mbAddTC.selectedTC.detailed_desc}" requiredMessage="Please enter Course Description" />
+						<p:outputLabel value="Course Description" />
+						<p:inputTextarea value="#{mbAddTC.selectedTC.detailed_desc}" requiredMessage="Please enter Course Description" />
 
-					<f:facet name="footer">
-						<p:commandButton value="Save" action="#{mbAddTC.save()}" ajax="false" />
-					</f:facet>
+						<f:facet name="footer">
+							<p:commandButton value="Save" action="#{mbAddTC.save()}" ajax="false" />
+						</f:facet>
 
-				</p:panelGrid>
-
+					</p:panelGrid>
+				</div>
 			</h:form>
 		</h:body>
 	</ui:define>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import Bean.Program;
 import Bean.School;
@@ -14,6 +15,7 @@ import DAO.SchoolDAO;
 import DAO.StudentDAO;
 import DAO.UniversityDAO;
 
+@ViewScoped
 @ManagedBean(name = "mbStu")
 public class MbStudent {
 
@@ -29,7 +31,11 @@ public class MbStudent {
 	public void init() {
 		stuDAO = new StudentDAO();
 		stuTable = stuDAO.selectall();
+		
 		selectedStu = new Student();
+		selectedStu.setUniversity(new University());
+		selectedStu.setSchool(new School());
+		selectedStu.setProgram(new Program());
 		
 		UniversityDAO uni = new UniversityDAO();
 		uniTable = uni.selectAll();

@@ -24,6 +24,25 @@ public class StudentDAO {
 	private ArrayList<Student> studentTable;
 	private int row;
 
+	// **selectmaxid**
+
+	private int selectMaxId(Connection connection) {
+		PreparedStatement ps2 = null;
+		ResultSet rs2 = null;
+		try {
+			ps2 = connection.prepareStatement("select nvl(max(student_id),0) AS Student_Id from student");
+			rs2 = ps2.executeQuery();
+			if (rs2.next()) {
+				return rs2.getInt("student_id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Databasea.close(rs2);
+		}
+		return 0;
+	}
+
 	// **select by Id **
 
 	public Student selectbyId(int student_id) {
@@ -44,6 +63,11 @@ public class StudentDAO {
 						rs.getString("mobile"), rs.getString("email"), rs.getInt("final_avaerage"),
 						rs.getInt("max_avareage"), rs.getString("rate"), rs.getInt("graduate_year"),
 						rs.getInt("graduate_sem"));
+
+				UniversityDAO daou = new UniversityDAO();
+				University university = daou.selectbyId(rs.getInt("university_id"));
+				student.setUniversity(university);
+
 				SchoolDAO daos = new SchoolDAO();
 				School school = daos.selectbyId(rs.getInt("school_id"));
 				student.setSchool(school);
@@ -51,10 +75,6 @@ public class StudentDAO {
 				ProgramDAO daop = new ProgramDAO();
 				Program program = daop.selectbyIdp(rs.getInt("program_id"));
 				student.setProgram(program);
-
-				UniversityDAO daou = new UniversityDAO();
-				University university = daou.selectbyId(rs.getInt("university_id"));
-				student.setUniversity(university);
 
 			}
 		} catch (SQLException e) {
@@ -127,8 +147,10 @@ public class StudentDAO {
 			connection = db.getConnection();
 			ps = connection.prepareStatement(
 					"insert into student (student_id, student_aname, student_ename, birthdate, sex, mobile,email, university_id, school_id, program_id, final_avaerage, max_avareage, rate, graduate_year, graduate_sem) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			int maxId = selectMaxId(connection);
 			int counter = 1;
-			ps.setInt(counter++, student.getStudent_id());
+			// ps.setInt(counter++, student.getStudent_id());
+			ps.setInt(counter++, maxId + 1);
 			ps.setString(counter++, student.getStudent_aname());
 			ps.setString(counter++, student.getStudent_ename());
 			ps.setDate(counter++, new Date(student.getBirthdate().getTime()));

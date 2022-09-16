@@ -28,8 +28,8 @@ public class ProgramDAO {
 			db = new Databasea();
 			programTable = new ArrayList<Program>();
 			connection = db.getConnection();
-			ps = connection.prepareStatement(
-					"select distinct school_ename from school where school_ename is not null order by school_ename");
+			ps = connection
+					.prepareStatement("select distinct school_ename from school where school_ename is not null order by school_ename");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -47,20 +47,19 @@ public class ProgramDAO {
 
 	// ** select programs by school id
 
-	public List<String> getProgBySchool(int school_id) {
+	public List<Program> getProgBySchool(int school_id) {
 //		Program program = null;
-		List<String> proTable = new ArrayList<String>();
-
+		List<Program> proTable = new ArrayList<Program>();
 
 		try {
 			db = new Databasea();
 			connection = db.getConnection();
-			ps = connection.prepareStatement(
-					"select program_ename from program where school_id=?");
-			ps.setInt(1,school_id);
+			ps = connection.prepareStatement("select program_id, program_aname, program_ename from program where school_id=?");
+			ps.setInt(1, school_id);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-							proTable.add(rs.getString("program_ename"));
+				Program program = new Program(rs.getInt("program_id"), rs.getString("program_aname"), rs.getString("program_ename"));
+				proTable.add(program);
 			}
 
 		} catch (SQLException e) {
@@ -73,6 +72,25 @@ public class ProgramDAO {
 
 		return proTable;
 	}
+	
+	// ** select max id**
+	
+//	private int selectMaxId(Connection connection) {
+//		PreparedStatement ps2 = null;
+//		ResultSet rs2 = null;
+//		try {
+//			ps2 = connection.prepareStatement("select nvl(max(program_id),0) AS Program_Id from program");
+//			rs2 = ps2.executeQuery();
+//			if (rs2.next()) {
+//				return rs2.getInt("program_id");
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			Databasea.close(rs2);
+//		}
+//		return 0;
+//	}
 
 	// **select by Id
 
@@ -83,17 +101,15 @@ public class ProgramDAO {
 		try {
 			db = new Databasea();
 			connection = db.getConnection();
-			ps = connection.prepareStatement(
-					"select school_id, program_id, program_aname,program_ename from program where program_id=?");// add
-																													// where
-																													// condition
+			ps = connection.prepareStatement("select school_id, program_id, program_aname,program_ename from program where program_id=?");// add
+																																			// where
+																																			// condition
 			ps.setInt(1, program_id);
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
 
-				program = new Program(rs.getInt("program_id"), rs.getString("program_aname"),
-						rs.getString("program_ename"));
+				program = new Program(rs.getInt("program_id"), rs.getString("program_aname"), rs.getString("program_ename"));
 				SchoolDAO dao = new SchoolDAO();
 				School school = dao.selectbyId(rs.getInt("school_id"));
 				program.setSchool(school);
@@ -148,11 +164,12 @@ public class ProgramDAO {
 		try {
 			db = new Databasea();
 			connection = db.getConnection();
-			ps = connection.prepareStatement(
-					"insert into program (school_id, program_id, program_aname, program_ename) values (?,?,?,?)");
+			ps = connection.prepareStatement("insert into program (school_id, program_id, program_aname, program_ename) values (?,?,?,?)");
 			int counter = 1;
+			//int maxId = selectMaxId(connection);
 			ps.setInt(counter++, program.getSchool().getSchool_id());
-			ps.setInt(counter++, program.getProgram_id());
+			ps.setInt(counter++, program.getProgram_id());			
+			//ps.setInt(counter++,maxId );
 			ps.setString(counter++, program.getProgram_aname());
 			ps.setString(counter++, program.getProgram_ename());
 
@@ -173,11 +190,12 @@ public class ProgramDAO {
 		try {
 			db = new Databasea();
 			connection = db.getConnection();
-			ps = connection.prepareStatement(
-					"update program set school_id=?, program_aname= ?, program_ename= ? where program_id= ?");
+			ps = connection.prepareStatement("update program set program_aname= ?, program_ename= ? where program_id= ?");
+
+			System.out.println(program);
 
 			int counter = 1;
-			ps.setInt(counter++, program.getSchool().getSchool_id());
+			// ps.setInt(counter++, program.getSchool().getSchool_id());
 			ps.setString(counter++, program.getProgram_aname());
 			ps.setString(counter++, program.getProgram_ename());
 			ps.setInt(counter++, program.getProgram_id());

@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import Bean.TrainingCourse;
 import DAO.TrainingCourseDAO;
 
+@ViewScoped
 @ManagedBean(name = "mbTC")
 public class MbTrainingCourse {
 

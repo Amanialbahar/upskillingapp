@@ -14,13 +14,33 @@
 						</f:facet>
 
 
-						<p:column headerText="rowToggler" style="width:6%">
-							<p:rowToggler />
+						<p:column headerText="ID" style="width:50px;text-align: center">
+							<h:outputText value="#{s.student_id}" />
+						</p:column>
+						<p:column headerText="English Name" filterBy="#{s.student_ename}" style="text-align: center">
+							<h:outputText value="#{s.student_ename}" />
+						</p:column>
+						<p:column headerText="Arabic Name" filterBy="#{s.student_aname}" style="text-align: center">
+							<h:outputText value="#{s.student_aname}" />
+						</p:column>
+						<p:column headerText="Program">
+							<h:outputText value="#{s.program.program_ename}" style="text-align: center" />
+						</p:column>
+						<p:column headerText="Rate" style="width:70px;text-align: center">
+							<h:outputText value="#{s.rate}" />
+						</p:column>
+						<p:column headerText="Year" style="width:50px;text-align: center">
+							<h:outputText value="#{s.graduate_year}" />
+						</p:column>
+						<p:column headerText="More Information" style="width:6%">
+							<p:panelGrid>
+								<p:rowToggler />
+							</p:panelGrid>
 						</p:column>
 
 						<p:rowExpansion>
-							<p:panelGrid columns="2" style="width:50%">
-								<p:outputLabel value="ID" />
+							<p:panelGrid columns="8" style="background-color: #ff9999;">
+								<p:outputLabel value="ID" style="font-size: 20px;"/>
 								<h:outputText value="#{s.student_id}" />
 								<p:outputLabel value="English Name" />
 								<h:outputText value="#{s.student_ename}" />
@@ -50,41 +70,34 @@
 								<h:outputText value="#{s.graduate_year}" />
 								<p:outputLabel value="Graduation Semester" />
 								<h:outputText value="#{s.graduate_year}" />
+
 								<f:facet name="footer">
-									<p:commandButton value="Remove" icon="pi pi-trash" action="#{mbStu.removeStudent()}" ajax="false">
+									<p:commandButton value="Edit" process="@this" update=":form:editPnl" onclick="PF('stuDlg').show()">
 										<f:setPropertyActionListener value="#{s}" target="#{mbStu.selectedStu}" />
 									</p:commandButton>
-									<p:commandButton value="Edit" action=":form:editPnl" onclick="PF('stuDlg').show()" ajax="false">
+
+									<p:commandButton value="Remove" action="#{mbStu.removeStudent()}" ajax="false">
 										<f:setPropertyActionListener value="#{s}" target="#{mbStu.selectedStu}" />
 									</p:commandButton>
 								</f:facet>
+
 							</p:panelGrid>
 						</p:rowExpansion>
+						<ui:remove>
+							<p:column headerText="Modification">
+								<p:commandButton value="More" update=":form:stu" onclick="PF('infoDlg').show()" onmouseover="pointer">
+									<f:setPropertyActionListener value="#{s}" target="#{mbStu.selectedStu}" />
+								</p:commandButton>
 
-						<p:column headerText="ID" style="width:50px">
-							<h:outputText value="#{s.student_id}" />
-						</p:column>
-						<p:column headerText="English Name" filterBy="#{s.student_ename}" style="width:25%">
-							<h:outputText value="#{s.student_ename}" />
-						</p:column>
-						<p:column headerText="Arabic Name" filterBy="#{s.student_aname}" style="width:15%">
-							<h:outputText value="#{s.student_aname}" />
-						</p:column>
-						<p:column headerText="University" style="width:10%">
-							<h:outputText value="#{s.university.university_ename}" />
-						</p:column>
-						<p:column headerText="School" style="width:10%">
-							<h:outputText value="#{s.school.school_ename}" />
-						</p:column>
-						<p:column headerText="Program" style="width:10%">
-							<h:outputText value="#{s.program.program_ename}" />
-						</p:column>
-						<p:column headerText="Rate" style="width:10%">
-							<h:outputText value="#{s.rate}" />
-						</p:column>
-						<p:column headerText="Graduation Year" style="width:10%">
-							<h:outputText value="#{s.graduate_year}" />
-						</p:column>
+								<p:commandButton value="Edit" process="@this" update=":form:editPnl" onclick="PF('stuDlg').show()" onmouseover="pointer">
+									<f:setPropertyActionListener value="#{s}" target="#{mbStu.selectedStu}" />
+								</p:commandButton>
+
+								<p:commandButton value="Remove" action="#{mbStu.removeStudent()}" ajax="false" onmouseover="pointer">
+									<f:setPropertyActionListener value="#{s}" target="#{mbStu.selectedStu}" />
+								</p:commandButton>
+							</p:column>
+						</ui:remove>
 
 						<f:facet name="footer">
 							<h:outputText value="In total there are #{mbStu.stuTable.size()} Students" />
@@ -95,7 +108,7 @@
 
 				<p:dialog header="Edit Student" modal="true" widgetVar="stuDlg">
 
-					<p:panelGrid id="editPnl" columns="2">
+					<p:panelGrid id="editPnl" columns="6">
 
 						<p:outputLabel value="ID" />
 						<h:outputText value="#{mbStu.selectedStu.student_id}" />
@@ -133,6 +146,45 @@
 						</f:facet>
 					</p:panelGrid>
 				</p:dialog>
+
+				<p:dialog header="Student Information" modal="true" widgetVar="infoDlg">
+					<p:panelGrid id="stu" columns="6">
+						<p:outputLabel value="ID" />
+						<h:outputText value="#{mbStu.selectedStu.student_id}" />
+						<p:outputLabel value="English Name" />
+						<h:outputText value="#{mbStu.selectedStu.student_ename}" />
+						<p:outputLabel value="Arabicc Name" />
+						<h:outputText value="#{mbStu.selectedStu.student_aname}" />
+						<p:outputLabel value="BirthDate" />
+						<h:outputText value="#{mbStu.selectedStu.birthdate}" />
+						<p:outputLabel value="Sex" />
+						<h:outputText value="#{mbStu.selectedStu.sex}" />
+						<p:outputLabel value="Mobile" />
+						<h:outputText value="#{mbStu.selectedStu.mobile}" />
+						<p:outputLabel value="Email" />
+						<h:outputText value="#{mbStu.selectedStu.email}" />
+						<p:outputLabel value="University" />
+						<h:outputText value="#{mbStu.selectedStu.university.university_ename}" />
+						<p:outputLabel value="School" />
+						<h:outputText value="#{mbStu.selectedStu.school.school_ename}" />
+						<p:outputLabel value="Program" />
+						<h:outputText value="#{mbStu.selectedStu.program.program_ename}" />
+						<p:outputLabel value="Average" />
+						<h:outputText value="#{mbStu.selectedStu.final_avarage}" />
+						<p:outputLabel value="MAX Average" />
+						<h:outputText value="#{mbStu.selectedStu.max_avarage}" />
+						<p:outputLabel value="Rate" />
+						<h:outputText value="#{mbStu.selectedStu.rate}" />
+						<p:outputLabel value="Graduation Year" />
+						<h:outputText value="#{mbStu.selectedStu.graduate_year}" />
+						<p:outputLabel value="Graduation Semester" />
+						<h:outputText value="#{mbStu.selectedStu.graduate_year}" />
+					</p:panelGrid>
+					<f:facet name="footer">
+						<p:commandButton value="Back" type="button" onclick="PF('infoDlg').hide()" />
+					</f:facet>
+				</p:dialog>
+
 			</h:form>
 		</h:body>
 	</ui:define>

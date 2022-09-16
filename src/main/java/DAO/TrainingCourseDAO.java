@@ -28,7 +28,7 @@ public class TrainingCourseDAO {
 			connection = db.getConnection();
 			ps = connection.prepareStatement(
 					"select course_id, course_aname, course_ename, max_students, short_desc, detailed_desc from training_course where course_id=?");
-			ps.setInt(1,course_id);
+			ps.setInt(1, course_id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				trainingcourse = new TrainingCourse(rs.getInt("course_id"), rs.getString("course_aname"),
@@ -46,29 +46,27 @@ public class TrainingCourseDAO {
 	}
 
 	// ** select max id**
-//
-//	private int selectMaxId() {
-//		try {
-//			db = new Databasea();
-//			connection = db.getConnection();
-//			ps = connection.prepareStatement("select nvl(max (course_id),0) AS course_id from training_course");
-//			rs = ps.executeQuery();
-//
-//			if (rs.next()) {
-//				return rs.getInt("course_id");
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			System.out.println("Finally");
-//			Databasea.close(rs);
-//			Databasea.close(ps);
-//			Databasea.close(connection);
-//		}
-//
-//		return 0;
-//	}
+	private static int selectMaxId(Connection connection) {
+		PreparedStatement ps2 = null;
+		ResultSet rs2 = null;
+		try {
+			ps2 = connection.prepareStatement("select nvl(max(course_id),0) AS course_id from training_course");
+			rs2 = ps2.executeQuery();
+
+			if (rs2.next()) {
+				return rs2.getInt("course_id");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			System.out.println("Finally");
+			Databasea.close(rs2);
+			Databasea.close(ps2);
+		}
+
+		return 0;
+	}
 
 // **Select All**
 
@@ -99,7 +97,6 @@ public class TrainingCourseDAO {
 	}
 
 	// **INSERT**
-
 	public int insert(TrainingCourse trainingcourse) {
 
 		try {
@@ -107,20 +104,16 @@ public class TrainingCourseDAO {
 			db = new Databasea();
 			connection = db.getConnection();
 			ps = connection.prepareStatement(
-					"insert into training_course( course_id, course_aname, course_ename, max_students, short_desc, detailed_desc) values(?, ?, ?, ?, ?,?)");
+					"insert into training_course(course_id, course_aname, course_ename, max_students, short_desc, detailed_desc) values(?, ?, ?, ?, ?,?)");
 
 			int counter = 1;
-			// int maxId = selectMaxId();
-			// System.out.println(maxId);
-			int maxstu = 15;
-			System.out.println(maxstu);
+			int maxId = selectMaxId(connection);
+			System.out.println(maxId);
 
-			// ps.setInt(counter++, maxId++); // 1
-			ps.setInt(counter++, trainingcourse.getCourse_id()); // 2
+			ps.setInt(counter++, maxId + 1);
 			ps.setString(counter++, trainingcourse.getCourse_aname());
 			ps.setString(counter++, trainingcourse.getCourse_ename());
-			//ps.setInt(counter++, trainingcourse.getMax_stu());
-			ps.setInt(counter++, maxstu);			
+			ps.setInt(counter++, trainingcourse.getMax_stu());
 			ps.setString(counter++, trainingcourse.getShort_desc());
 			ps.setString(counter++, trainingcourse.getDetailed_desc());
 

@@ -1,61 +1,66 @@
 <ui:composition template="/WEB-INF/template/template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
-	<ui:define name="title"> Adding Student Course </ui:define>
+	<ui:define name="title"> Adding Student Track </ui:define>
 	<ui:define name="content">
 		<h:body>
 			<h:form id="form">
 				<p:growl showDetail="true">
 					<p:autoUpdate />
 				</p:growl>
+				<p:accordionPanel>
+					<p:tab title="Adding Student Track">
+						<div align="center">
+							<p:panelGrid columns="2">
+								<f:facet name="header">
+									<h:outputText value="Adding Student Track" />
+								</f:facet>
 
-				<p:panelGrid columns="2">
-					<f:facet name="header">
-						<h:outputText value="Adding Student Course" />
-					</f:facet>
+								<p:outputLabel value="Student Name" for="name" />
+								<p:selectOneMenu id="name" value="#{mbAddStuCo.stuCourse.student.student_ename}" required="true"
+									requiredMessage="Please enter Student name">
+									<f:selectItem itemLabel="Select One" itemValue="" />
+									<f:selectItems value="#{mbAddStuCo.stuTable}" var="s" itemValue="#{s.student_id}" itemLabel="#{s.student_ename}" />
+								</p:selectOneMenu>
 
-					<p:outputLabel value="Student Name" for="name" />
-					<p:selectOneMenu id="name" value="#{mbAddStuCo.stuCourse.student.student_ename}" required="true"
-						requiredMessage="Please enter Student name">
-						<f:selectItem itemLabel="Select One" itemValue="" />
-						<f:selectItems value="#{mbAddStuCo.stuTable}" var="s" itemValue="#{s.student_id}" itemLabel="#{s.student_ename}" />
-					</p:selectOneMenu>
+								<p:outputLabel value="Training Course" for="tc" />
+								<p:selectOneMenu id="tc" value="#{mbAddStuCo.stuCourse.course.course_id}" required="true" requiredMessage="Please enter course name">
+									<f:selectItem itemLabel="Select One" itemValue="" />
+									<f:selectItems value="#{mbAddStuCo.courseTable}" var="c" itemValue="#{c.course_id}" itemLabel="#{c.course_ename}" />
+								</p:selectOneMenu>
 
-					<p:outputLabel value="Training Course" for="tc" />
-					<p:selectOneMenu id="tc" value="#{mbAddStuCo.stuCourse.course.course_id}" required="true" requiredMessage="Please enter course name">
-						<f:selectItem itemLabel="Select One" itemValue="" />
-						<f:selectItems value="#{mbAddStuCo.courseTable}" var="c" itemValue="#{c.course_id}" itemLabel="#{c.course_ename}" />
-					</p:selectOneMenu>
+								<p:outputLabel value="Priority" for="p" />
+								<h:inputText id="p" value="#{mbAddStuCo.stuCourse.priority}" required="true" requiredMessage="Please enter name" />
 
-					<p:outputLabel value="Priority" for="p" />
-					<h:inputText id="p" value="#{mbAddStuCo.stuCourse.priority}" required="true" requiredMessage="Please enter name" />
-
-					<f:facet name="footer">
-						<p:commandButton value="Save" action="#{mbAddStuCo.save()}" ajax="false" />
-					</f:facet>
-				</p:panelGrid>
-				<br />
-				
-				<p:dataTable id="table" value="#{mbAddStuCo.stuTCTable}" var="stc" expandedRow="false" rowExpandMode="multiple" stickyHeader="true"
-					styleClass="datatable" resizeMode="fit">
-					<f:facet name="header">
-						<h:outputText value="Studant Selected Training Courses" />
-					</f:facet>
+								<f:facet name="footer">
+									<p:commandButton value="Save" action="#{mbAddStuCo.save()}" ajax="false" />
+								</f:facet>
+							</p:panelGrid>
+						</div>
+					</p:tab>
+					<br />
+					<p:tab title="Studant Selected Track">
+						<p:dataTable id="table" value="#{mbAddStuCo.stuTCTable}" var="stc" expandedRow="false" rowExpandMode="multiple" stickyHeader="true"
+							styleClass="datatable" resizeMode="fit">
+							<f:facet name="header">
+								<h:outputText value="Studant Selected Track" />
+							</f:facet>
 
 
-					<p:column headerText="Student name">
-						<h:outputText value="#{stc.student.student_ename}" />
-					</p:column>
+							<p:column headerText="Student name">
+								<h:outputText value="#{stc.student.student_ename}" />
+							</p:column>
 
-					<p:column headerText="Training Course">
-						<h:outputText value="#{stc.course.course_ename}" />
-					</p:column>
+							<p:column headerText="Training Course">
+								<h:outputText value="#{stc.course.course_ename}" />
+							</p:column>
 
-					<p:column headerText="Priority">
-						<h:outputText value="#{stc.priority}" />
-					</p:column>
+							<p:column headerText="Priority">
+								<h:outputText value="#{stc.priority}" />
+							</p:column>
 
-				</p:dataTable>
-
+						</p:dataTable>
+					</p:tab>
+				</p:accordionPanel>
 			</h:form>
 		</h:body>
 	</ui:define>

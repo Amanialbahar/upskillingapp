@@ -47,7 +47,7 @@ public class StudentResultDAO {
 
 				studentresult.setEnglish_mark(rs.getInt("english_mark"));
 				studentresult.setInterview_mark(rs.getInt("interview_mark"));
-				studentresult.setAccepted_flag(rs.getInt("accepted_flag"));
+				studentresult.setAccepted_flag(rs.getBoolean("accepted_flag"));
 				studentresult.setNotes(rs.getString("notes"));
 
 				studentresulttable.add(studentresult);
@@ -78,7 +78,7 @@ public class StudentResultDAO {
 			ps.setInt(counter++, studentresult.getCourse().getCourse_id());
 			ps.setInt(counter++, studentresult.getEnglish_mark());
 			ps.setInt(counter++, studentresult.getInterview_mark());
-			ps.setInt(counter++, studentresult.getAccepted_flag());
+			ps.setBoolean(counter++, studentresult.isAccepted_flag());
 			ps.setString(counter++, studentresult.getNotes());
 			row = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -105,7 +105,7 @@ public class StudentResultDAO {
 			ps.setInt(counter++, studentresult.getCourse().getCourse_id());
 			ps.setInt(counter++, studentresult.getEnglish_mark());
 			ps.setInt(counter++, studentresult.getInterview_mark());
-			ps.setInt(counter++, studentresult.getAccepted_flag());
+			ps.setBoolean(counter++, studentresult.isAccepted_flag());
 			ps.setString(counter++, studentresult.getNotes());
 			ps.setInt(counter++, studentresult.getStudent().getStudent_id());
 
