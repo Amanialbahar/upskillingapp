@@ -1,5 +1,6 @@
 # upskillingapp
-upskillingapp with Eclipse 
+upskillingapp with Java Standard Edition (JSE), Java Server Faces (JSF), JDBC, DAO design pattern, PRIMEFACES, oracle DataBase and JasperReport.
+
 In January 2019, Al Hussein Technical University (HTU) launched the National ICT 
 Upskilling program in collaboration with the Ministry of Digital Economy and 
 Entrepreneurship (MoDEE). The program aims to provide the students of ICT fields with
